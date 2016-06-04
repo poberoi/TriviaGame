@@ -27,7 +27,7 @@ $(document).ready(function(){
     
     startTimer: function(){
       quest.resetTimer();
-      counter = setTimeout(quest.count, 1000);
+      counter = setInterval(quest.count, 1000);
     },
     
     count: function(){
@@ -40,16 +40,19 @@ $(document).ready(function(){
     },
 
     checkAns: function(x){
+      console.log(x);
       var incorrect = true;
       for(i=0;i<quest.answer.length;i++){
-        if (x===quest.answer[i]){
+        if (x === quest.answer[i] ){
           quest.correctAns++;
           incorrect = false;
         }
+        console.log("checkAns method inside for loop");
       }
       if (incorrect === true){
         quest.incorrectAns++;
       }
+      clearInterval(counter);
       quest.resetTimer();
       console.log(quest.correctAns, quest.incorrectAns);
     },
@@ -77,25 +80,40 @@ $(document).ready(function(){
       
       
       $('#choice1').on('click', function(){
+        // console.log('choice1');
         quest.checkAns($(this).text());
         quest.question2();
       });
       $('#choice2').on('click', function(){
+        // console.log('choice2');
         quest.checkAns($(this).text());
         quest.question2();
       });
       $('#choice3').on('click', function(){
+        // console.log('choice3');
+        // console.log(this);
+        // console.log(quest);
+        // console.log("Clicked");
         quest.checkAns($(this).text());
         quest.question2();
       });
       $('#choice4').on('click', function(){
+        // console.log('choice4');
         quest.checkAns($(this).text());
         quest.question2();
       });
+      console.log(quest.timer);
+      if (quest.timer === 0){
+        unAns++;
+        console.log(unAns);
+        quest.question2();
+      }
+      
 
     },
 
     question2: function(){
+      $('button').off('click');
       quest.startTimer();
       $('#question').html('<h1>'+ quest.q2.question + '</h1>')
           
@@ -117,22 +135,26 @@ $(document).ready(function(){
       $('#choice4').html($d);
       
       
-      $('#choice1').on('click', function(){
-        quest.checkAns($(this).text());
-        quest.question2();
-      });
-      $('#choice2').on('click', function(){
-        quest.checkAns($(this).text());
-        quest.question2();
-      });
-      $('#choice3').on('click', function(){
-        quest.checkAns($(this).text());
-        quest.question2();
-      });
-      $('#choice4').on('click', function(){
-        quest.checkAns($(this).text());
-        quest.question2();
-      });
+      // $('#choice1').on('click', function(){
+      //   // quest.checkAns($(this).text());
+      //   // quest.question2();
+      //   console.log('choice1');
+      // });
+      // $('#choice2').on('click', function(){
+      //   // quest.checkAns($(this).text());
+      //   // quest.question2();
+      //   console.log('choice2');
+      // });
+      // $('#choice3').on('click', function(){
+      //   // quest.checkAns($(this).text());
+      //   // quest.question2();
+      //   console.log('choice3');
+      // });
+      // $('#choice4').on('click', function(){
+      //   console.log('choice4');
+      //   // quest.checkAns($(this).text());
+      //   // quest.question2();
+      // });
 
     },
 
@@ -146,8 +168,7 @@ $(document).ready(function(){
     },
 
     resetTimer: function(){
-      timer = 15;
-      counter = 0;
+      quest.timer = 15;
       $('#timer').html('<h2>Time Remaining: 15 seconds</h2>');
 
     }
