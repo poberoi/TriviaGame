@@ -70,13 +70,15 @@ $(document).ready(function(){
         incorrectAns++;
       }
       
-      nextQuestion = true;
+      nextQuestion++;
+      if (nextQuestion === 1){
+        writeQuestion2();
+      }
 
       resetTimer();
       console.log(correctAns,incorrectAns);
-      return nextQuestion;
     });
-  }
+  };
   var writeQuestion1 = function(){
     $('#question').html('<h1>'+ questions[0].question + '</h1>')
     var $a = $("<button>");
@@ -100,13 +102,9 @@ $(document).ready(function(){
     $d.attr('data-value',questions[0].choices[3]);
     $('#choice4').html($d);
     checkAns();
-    console.log(nextQuestion);
-    if (nextQuestion === true){
-      writeQuestion2();
-    }
     
     
-  }
+  };
   var writeQuestion2 = function(){
     $('#question').html('<h1>'+ questions[1].question + '</h1>')
     var $a = $("<button>");
@@ -130,23 +128,23 @@ $(document).ready(function(){
     $d.attr('data-value',questions[1].choices[3]);
     $('#choice4').html($d);
     checkAns();
-    if (timer<0){
-      writeQuestion3();
-    }
-  }
+  };
 
   var timer = 15;
   var counter = 0;
   var correctAns = 0;
   var incorrectAns = 0;
   var unAns = 0;
-  var nextQuestion = false;
+  var nextQuestion = 0;
     
   initialScreen();
   $(".startButton").on('click', function(){
     resetTimer();
     writeQuestion1();
+    console.log(nextQuestion);
   });
+
+  
   
 });
 
