@@ -59,6 +59,7 @@ $(document).ready(function(){
   var checkAns = function(){
     $("button").on('click', function(){
       var checkAnswer= $(this).data('value');
+      console.log(checkAnswer);
       var incorrect = true;
       for(i=0;i<answers.length;i++){
         if (checkAnswer === answers[i]){
@@ -69,12 +70,8 @@ $(document).ready(function(){
       if (incorrect === true){
         incorrectAns++;
       }
-      
-      nextQuestion = true;
-
       resetTimer();
       console.log(correctAns,incorrectAns);
-      return nextQuestion;
     });
   }
   var writeQuestion1 = function(){
@@ -100,38 +97,8 @@ $(document).ready(function(){
     $d.attr('data-value',questions[0].choices[3]);
     $('#choice4').html($d);
     checkAns();
-    console.log(nextQuestion);
-    if (nextQuestion === true){
-      writeQuestion2();
-    }
-    
-    
-  }
-  var writeQuestion2 = function(){
-    $('#question').html('<h1>'+ questions[1].question + '</h1>')
-    var $a = $("<button>");
-    var $b = $("<button>");
-    var $c = $("<button>");
-    var $d = $("<button>");
-
-    $a.text(questions[1].choices[0]);
-    $a.attr('data-value',questions[1].choices[0]);
-    $('#choice1').html($a);
-    
-    $b.text(questions[1].choices[1]);
-    $b.attr('data-value',questions[1].choices[1]);
-    $('#choice2').html($b);
-    
-    $c.text(questions[1].choices[2]);
-    $c.attr('data-value',questions[1].choices[2]);
-    $('#choice3').html($c);
-    
-    $d.text(questions[1].choices[3]);
-    $d.attr('data-value',questions[1].choices[3]);
-    $('#choice4').html($d);
-    checkAns();
     if (timer<0){
-      writeQuestion3();
+      writeQuestion2();
     }
   }
 
@@ -140,7 +107,6 @@ $(document).ready(function(){
   var correctAns = 0;
   var incorrectAns = 0;
   var unAns = 0;
-  var nextQuestion = false;
     
   initialScreen();
   $(".startButton").on('click', function(){
